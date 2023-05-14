@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "84e20c7b-158c-4e63-878a-a29593e72b78",
+		"name": "Spring Boot Docker Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11284599"
+	},
+	"item": [
+		{
+			"name": "Get all comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "This is a simple comment.",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/f4d27555-ad22-4caa-a1a4-ce12e38249a4/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"f4d27555-ad22-4caa-a1a4-ce12e38249a4",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all comments by user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"This is a simple comment\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/f4d27555-ad22-4caa-a1a4-ce12e38249a4/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"f4d27555-ad22-4caa-a1a4-ce12e38249a4",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"This is a simple comment\"",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/comments/9ac0df53-4ef8-456b-87f8-c9ba7875cf99",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"comments",
+						"9ac0df53-4ef8-456b-87f8-c9ba7875cf99"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
