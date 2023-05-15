@@ -9,4 +9,5 @@ FROM amazoncorretto:17
 ENV PROFILE=dev
 WORKDIR /tmp
 COPY --from=build /app/target/*.jar app.jar
+EXPOSE 3000
 CMD ["java","-Dspring.profiles.active=${PROFILE}", "-jar", "app.jar"]
