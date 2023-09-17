@@ -30,11 +30,23 @@ docker run -it --name <APP_NAME> \
     <your_repository_name>/<image_name>:<tag>
 ```
 
-3. Login to your docker hub
+3. Interacting with your apis
 
-```bash
-docker login
-username: <YOUR_USERNAME>
-password: <YOUR_PASSWORD>
+- GET comments
+```
+curl --location 'http://localhost:3000/api/v1/comments'
 ```
 
+- POST comment
+```
+curl --location 'http://localhost:3000/api/v1/users/f4d27555-ad22-4caa-a1a4-ce12e38249a4/comments' \
+    --header 'Content-Type: text/plain' \
+    --data 'This is a simple comment.'
+```
+
+- DELETE comment
+```
+curl --location --request DELETE 'http://localhost:3000/api/v1/comments/9ac0df53-4ef8-456b-87f8-c9ba7875cf99' \
+    --header 'Content-Type: text/plain' \
+    --data '"This is a simple comment"'
+```

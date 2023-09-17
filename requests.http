@@ -1,0 +1,19 @@
+@hostname=localhost
+@port=3000
+@basepath=api/v1
+@url=http://{{hostname}}:{{port}}/{{basepath}}
+@userId=f4d27555-ad22-4caa-a1a4-ce12e38249a4
+@commentId=b2fe5661-46bb-4849-a5f4-3b865b5ad9bb
+
+GET {{url}}/comments
+
+###
+
+POST {{url}}/users/{{userId}}/comments
+Content-Type: application/json
+
+This is a simple comment.
+
+###
+
+DELETE {{url}}/comments/{{commentId}} HTTP/1.1
