@@ -3,7 +3,7 @@ pipeline{
   stages{
     stage("Git-Checkout"){
       steps{
-        git(  
+        git(     
           url:"https://github.com/saadqureshi-viacom18/spring-boot-docker-demo.git",
           branch: "main"
           changelog: true,
