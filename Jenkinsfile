@@ -32,14 +32,14 @@ pipeline {
                     approvalMailBody += "To proceed, click [here](${BUILD_URL}).\n\n"
                     approvalMailBody += "To abort, reply to this email with 'ABORT' in the subject line."
                     
-                    emailext subject: 'Pipeline Approval Required', body: approvalMailBody, to: 'mailto:saadq9870@gmail.com'
+                    emailext subject: 'Pipeline Approval Required', body: approvalMailBody, to: 'zabiralfiya6@gmail.com'
                     
                     // Wait for user input, abort if 'ABORT' is in the email subject line
                     def userInput = emailext (
                         subject: 'Waiting for Approval', 
                         body: 'Reply with "ABORT" to abort the pipeline.', 
-                        to: 'mailto:saadq9870@gmail.com'
-                    )
+                        to: 'zabiralfiya6@gmail.com'
+                    )6
                     
                     if (userInput.subject == 'ABORT') {
                         currentBuild.result = 'ABORTED'
@@ -48,12 +48,12 @@ pipeline {
                 }
             }
         }    
-        stage('Docker Build') {
-            steps {
-                sh 'sudo docker build -t saadqureshi9870/spring:${BUILD_NUMBER} .'
-            }
-        }
-    }
+    //     stage('Docker Build') {
+    //         steps {
+    //             sh 'sudo docker build -t saadqureshi9870/spring:${BUILD_NUMBER} .'
+    //         }
+    //     }
+    // }
     post {
         success {
             script {
