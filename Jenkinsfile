@@ -7,7 +7,7 @@ pipeline {
         stage("Pipeline Start") {
             steps {
                 echo "Pipeline Started"
-                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'zabiralfiya6@gmail.com'
+                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'kasareabhishek79@gmail.com'
             }
         }
         
@@ -29,13 +29,13 @@ pipeline {
     //                 approvalMailBody += "To proceed, click [here](${BUILD_URL}).\n\n"
     //                 approvalMailBody += "To abort, reply to this email with 'ABORT' in the subject line."
                     
-    //                 emailext subject: 'Pipeline Approval Required', body: approvalMailBody, to: 'zabiralfiya6@gmail.com'
+    //                 emailext subject: 'Pipeline Approval Required', body: approvalMailBody, to: 'kasareabhishek79@gmail.com'
                     
     //                 // Wait for user input, abort if 'ABORT' is in the email subject line
     //                 def userInput = emailext (
     //                     subject: 'Waiting for Approval', 
     //                     body: 'Reply with "ABORT" to abort the pipeline.', 
-    //                     to: 'zabiralfiya6@gmail.com'
+    //                     to: 'kasareabhishek79@gmail.com'
     //                 )
                     
     //                 if (userInput.subject == 'ABORT') {
@@ -53,7 +53,7 @@ pipeline {
                 emailext body: 'Pipeline Build Successfully', 
                     // recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Success',
-                    to: 'zabiralfiya6@gmail.com' 
+                    to: 'kasareabhishek79@gmail.com' 
             }
         }
         failure {
@@ -61,7 +61,7 @@ pipeline {
                 emailext body: 'Pipeline Failure occurred.', 
                     // recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Failure',
-                    to: 'zabiralfiya6@gmail.com' 
+                    to: 'kasareabhishek79@gmail.com' 
             }
         }
     }
