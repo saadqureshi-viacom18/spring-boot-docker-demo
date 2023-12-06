@@ -3,9 +3,6 @@ pipeline {
     tools {
         maven 'Maven'
     }
-    // environment {
-    //     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-    // }
     stages {
         stage("Pipeline Start") {
             steps {
@@ -39,7 +36,7 @@ pipeline {
                         subject: 'Waiting for Approval', 
                         body: 'Reply with "ABORT" to abort the pipeline.', 
                         to: 'zabiralfiya6@gmail.com'
-                    )6
+                    )
                     
                     if (userInput.subject == 'ABORT') {
                         currentBuild.result = 'ABORTED'
@@ -47,13 +44,8 @@ pipeline {
                     }
                 }
             }
-        }    
-    //     stage('Docker Build') {
-    //         steps {
-    //             sh 'sudo docker build -t saadqureshi9870/spring:${BUILD_NUMBER} .'
-    //         }
-    //     }
-    // }
+        }
+    }
     post {
         success {
             script {
@@ -72,9 +64,5 @@ pipeline {
                     to: 'zabiralfiya6@gmail.com' 
             }
         }
-
-        // always {
-        //     archiveArtifacts artifacts: 'trivy-report.pdf', fingerprint: true
-        // }
     }
 }
