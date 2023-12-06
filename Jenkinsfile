@@ -53,7 +53,7 @@ pipeline {
                 emailext body: 'Pipeline Build Successfully', 
                     // recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Success',
-                    to: 'zabiralfiya6@gmail.com' 
+                    to: 'kasare.abhishek555@gmail.com' 
             }
         }
         failure {
