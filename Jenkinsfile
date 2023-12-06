@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven-springboot'
+        maven 'Maven'
     }
     // environment {
     //     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
