@@ -61,7 +61,7 @@ pipeline {
                 emailext body: 'Pipeline Build Successfully', 
                     recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Success',
-                    to: 'mailto:zabiralfiya6@gmail.com' 
+                    to: 'zabiralfiya6@gmail.com' 
             }
         }
         failure {
@@ -69,7 +69,7 @@ pipeline {
                 emailext body: 'Pipeline Failure occurred.', 
                     recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Failure',
-                    to: 'mailto:zabiralfiya6@gmail.com' 
+                    to: 'zabiralfiya6@gmail.com' 
             }
         }
 
