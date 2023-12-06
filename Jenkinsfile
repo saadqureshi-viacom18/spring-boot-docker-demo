@@ -7,7 +7,7 @@ pipeline {
         stage("Pipeline Start") {
             steps {
                 echo "Pipeline Started"
-                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: ''
+                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'zabiralfiya6@gmail.com'
             }
         }
         
@@ -53,7 +53,7 @@ pipeline {
                 emailext body: 'Pipeline Build Successfully', 
                     // recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Success',
-                    to: 'kasare.abhishek555@gmail.com' 
+                    to: 'zabiralfiya6@gmail.com' 
             }
         }
         failure {
