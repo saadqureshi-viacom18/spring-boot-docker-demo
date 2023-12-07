@@ -24,9 +24,7 @@ pipeline {
             }
         }
 
-        script {
-            customizeManualApprovalStage()
-        }
+        customizeManualApprovalStage()
 
         stage('Git-Checkout') {
             steps {
@@ -79,7 +77,6 @@ def getApprovalEmailBody() {
 }
 
 def customizeManualApprovalStage() {
-    // Call the customized manual approval stage function
     stage('Handle Approval Decision') {
         steps {
             script {
