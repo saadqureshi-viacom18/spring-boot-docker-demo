@@ -59,7 +59,7 @@ pipeline {
             }
             steps {
                 echo 'Sending email notification for pipeline abort...'
-                emailext subject: 'Pipeline Aborted', body: 'The pipeline has been aborted.', to: 'mailto:saadq9870@gmail.com'
+                emailext subject: 'Pipeline Aborted', body: 'The pipeline has been aborted.', to: 'kasareabhishek79@gmail.com'
             }
         }
     }
