@@ -49,6 +49,17 @@ pipeline {
                 }
             }
         }
+
+        stage('Abort Stage') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('ABORTED') }
+            }
+            steps {
+                echo 'Aborting the pipeline...'
+                // Additional steps for aborting the pipeline can be added here
+                emailext body: 'Pipeline has been aborted.', subject: 'Pipeline Aborted', to: 'kasareabhishek79@gmail.com'
+            }
+        }
     }
 
     post {
