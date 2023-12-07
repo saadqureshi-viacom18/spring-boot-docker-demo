@@ -1,13 +1,10 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
     stages {
         stage("Pipeline Start") {
             steps {
                 echo "Pipeline Started"
-                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'kasareabhishek79@gmail.com'
+                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'hitikaabhandari0304@gmail.com'
             }
         }
         
