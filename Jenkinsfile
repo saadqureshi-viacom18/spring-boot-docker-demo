@@ -15,6 +15,23 @@ pipeline {
             }
         }
 
+       
+
+        stage('Git-Checkout') {
+            steps {
+                script {
+                    // Make sure to use credentials for Git if needed
+                    git(
+                        url: "https://github.com/saadqureshi-viacom18/spring-boot-docker-demo.git",
+                        branch: "main",
+                        changelog: true,
+                        poll: true,
+                        credentialsId: 'your-git-credentials-id'
+                    )
+                }
+            }
+        }
+        
         stage("Generate Approval Link") {
             steps {
                 script {
@@ -37,22 +54,7 @@ pipeline {
                 }
             }
         }
-
-        stage('Git-Checkout') {
-            steps {
-                script {
-                    // Make sure to use credentials for Git if needed
-                    git(
-                        url: "https://github.com/saadqureshi-viacom18/spring-boot-docker-demo.git",
-                        branch: "main",
-                        changelog: true,
-                        poll: true,
-                        credentialsId: 'your-git-credentials-id'
-                    )
-                }
-            }
-        }
-
+        
         stage('Abort Notification Stage') {
             when {
                 expression { currentBuild.resultIsBetterOrEqualTo('ABORTED') }
