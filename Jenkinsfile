@@ -4,7 +4,7 @@ pipeline {
         stage("Pipeline Start") {
             steps {
                 echo "Pipeline Started"
-                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'hitikaabhandari0304@gmail.com'
+                emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'zabiralfiya6@gmail.com'
             }
         }
         
@@ -32,7 +32,7 @@ pipeline {
                      def userInput = emailext (
                          subject: 'Waiting for Approval', 
                          body: 'Reply with "ABORT" to abort the pipeline.', 
-                         to: 'hitikaabhandari0304@gmail.com'
+                         to: 'zabiralfiya6@gmail.com'
                      )
                     
                      if (userInput.subject == 'ABORT') {
@@ -49,17 +49,17 @@ pipeline {
             script {
                 // archiveArtifacts artifacts: 'trivy-report.html', allowEmptyArchive: true, onlyIfSuccessful: true
                 emailext body: 'Pipeline Build Successfully', 
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
+                    //recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Success',
-                    to: 'hitikaabhandari0304@gmail.com' 
+                    to: 'zabiralfiya6@gmail.com' 
             }
         }
         failure {
             script {
                 emailext body: 'Pipeline Failure occurred.', 
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
+                    //recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Failure',
-                    to: 'hitikaabhandari0304@gmail.com' 
+                    to: 'zabiralfiya6@gmail.com' 
             }
         }
     }
