@@ -1,5 +1,6 @@
 pipeline {
-    agent any   
+    agent any
+
     stages {
         stage("Pipeline Start") {
             steps {
@@ -7,7 +8,7 @@ pipeline {
                 emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'zabiralfiya6@gmail.com'
             }
         }
-        
+
         stage("Git-Checkout") {
             steps {
                 git(
@@ -19,37 +20,39 @@ pipeline {
             }
         }
 
-         // stage('Approval Stage') {
-         //     steps {
-         //         script {
-         //             def approvalMailBody = "Please proceed or abort the pipeline.\n\n"
-         //             approvalMailBody += "To proceed, click [here](${BUILD_URL}).\n\n"
-         //             approvalMailBody += "To abort, reply to this email with 'ABORT' in the subject line."
+        // Uncomment and complete the approval stage as needed
+        /*
+        stage('Approval Stage') {
+            steps {
+                script {
+                    def approvalMailBody = "Please proceed or abort the pipeline.\n\n"
+                    approvalMailBody += "To proceed, click [here](${BUILD_URL}).\n\n"
+                    approvalMailBody += "To abort, reply to this email with 'ABORT' in the subject line."
                     
-         //             emailext subject: 'Pipeline Approval Required', body: approvalMailBody, to: 'zabiralfiya6@gmail.com'
+                    emailext subject: 'Pipeline Approval Required', body: approvalMailBody, to: 'zabiralfiya6@gmail.com'
                     
-         //             // Wait for user input, abort if 'ABORT' is in the email subject line
-         //             def userInput = emailext (
-         //                 subject: 'Waiting for Approval', 
-         //                 body: 'Reply with "ABORT" to abort the pipeline.', 
-         //                 to: 'zabiralfiya6@gmail.com'
-         //             )
+                    // Wait for user input, abort if 'ABORT' is in the email subject line
+                    def userInput = emailext (
+                        subject: 'Waiting for Approval', 
+                        body: 'Reply with "ABORT" to abort the pipeline.', 
+                        to: 'zabiralfiya6@gmail.com'
+                    )
                     
-         //             if (userInput.subject == 'ABORT') {
-         //                 currentBuild.result = 'ABORTED'
-         //                 error('Pipeline aborted by user.')
-         //             }
-         //         }
-         //     }
-         }
-     }
-    
+                    if (userInput.subject == 'ABORT') {
+                        currentBuild.result = 'ABORTED'
+                        error('Pipeline aborted by user.')
+                    }
+                }
+            }
+        }
+        */
+    }
+
     post {
         success {
             script {
                 // archiveArtifacts artifacts: 'trivy-report.html', allowEmptyArchive: true, onlyIfSuccessful: true
                 emailext body: 'Pipeline Build Successfully', 
-                    //recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Success',
                     to: 'zabiralfiya6@gmail.com' 
             }
@@ -57,7 +60,6 @@ pipeline {
         failure {
             script {
                 emailext body: 'Pipeline Failure occurred.', 
-                    //recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                     subject: 'Pipeline Failure',
                     to: 'zabiralfiya6@gmail.com' 
             }
