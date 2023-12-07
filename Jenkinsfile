@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     echo "Pipeline Started"
-                    emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'hitikaabhnadari0304@gmail.com'
+                    emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'kasareabhishek79@gmail.com'
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Generate and send the approval link in the email
-                    emailext subject: 'Manual Approval Required', body: getApprovalEmailBody(), to: 'kasareabhishek79@gmail.com'
+                    emailext subject: 'Manual Approval Required', body: getApprovalEmailBody(), to: 'hitikaabhandari0304@gmail.com'
                 }
             }
         }
