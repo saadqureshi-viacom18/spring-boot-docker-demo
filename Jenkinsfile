@@ -24,7 +24,13 @@ pipeline {
             }
         }
 
-        customizeManualApprovalStage()
+        stage('Handle Approval Decision') {
+            steps {
+                script {
+                    customizeManualApprovalStage()
+                }
+            }
+        }
 
         stage('Git-Checkout') {
             steps {
@@ -77,17 +83,12 @@ def getApprovalEmailBody() {
 }
 
 def customizeManualApprovalStage() {
-    stage('Handle Approval Decision') {
-        steps {
-            script {
-                def userInput = input message: 'Pipeline Approval Required', parameters: [choice(name: 'APPROVAL', choices: ['Proceed', 'Abort'])]
+    // Your custom approval stage logic goes here
+    input message: 'Pipeline Approval Required', parameters: [choice(name: 'APPROVAL', choices: ['Proceed', 'Abort'])]
 
-                // Process the user's choice
-                if (userInput == 'Abort') {
-                    currentBuild.result = 'ABORTED'
-                    error('Pipeline aborted by user.')
-                }
-            }
-        }
+    // Process the user's choice
+    if (params.APPROVAL == 'Abort') {
+        currentBuild.result = 'ABORTED'
+        error('Pipeline aborted by user.')
     }
 }
