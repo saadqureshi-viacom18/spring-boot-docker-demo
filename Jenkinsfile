@@ -24,8 +24,6 @@ pipeline {
             }
         }
 
-        // Uncomment and complete the approval stage as needed
-        
         stage('Approval Stage') {
             steps {
                 script {
@@ -39,10 +37,27 @@ pipeline {
                         to: 'kasareabhishek79@gmail.com'
                     )
                     
-                    // Wait for user input, abort if 'ABORT' is in the email subject line
-                    if (userInput.subject == 'ABORT') {
-                        currentBuild.result = 'ABORTED'
-                        error('Pipeline aborted by user.')
+                    // Wait for user input, abort if 'ABORT' is in the email subject line within a timeout
+                    timeout(time: 1, unit: 'HOURS') {
+                        // Loop until timeout or user responds
+                        def responseReceived = false
+                        while (!responseReceived) {
+                            def inputResponse = emailext (
+                                subject: 'Waiting for Approval', 
+                                body: 'Reply with "ABORT" to abort the pipeline.', 
+                                to: 'kasareabhishek79@gmail.com'
+                            )
+                            
+                            if (inputResponse.subject == 'ABORT') {
+                                currentBuild.result = 'ABORTED'
+                                error('Pipeline aborted by user.')
+                            } else if (inputResponse.subject != null) {
+                                // User responded, break the loop
+                                responseReceived = true
+                            }
+                            
+                            sleep(30) // Adjust the sleep time based on your needs
+                        }
                     }
                 }
             }
