@@ -10,27 +10,12 @@ pipeline {
             steps {
                 script {
                     echo "Pipeline Started"
-                    emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'kasareabhishek79@gmail.com'
+                    emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'saadq9870@gmail.com'
                 }
             }
         }
 
-        stage("Generate Approval Link") {
-            steps {
-                script {
-                    // Generate and send the approval link in the email
-                    emailext subject: 'Manual Approval Required', body: getApprovalEmailBody(), to: 'kasareabhishek79@gmail.com'
-                }
-            }
-        }
-
-        stage('Handle Approval Decision') {
-            steps {
-                script {
-                    customizeManualApprovalStage()
-                }
-            }
-        }
+       
 
         stage('Git-Checkout') {
             steps {
@@ -46,14 +31,27 @@ pipeline {
                 }
             }
         }
-
-        stage('Abort Notification Stage') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('ABORTED') }
-            }
+        
+        stage("Generate Approval Link") {
             steps {
-                echo 'Sending email notification for pipeline abort...'
-                emailext subject: 'Pipeline Aborted', body: 'The pipeline has been aborted.', to: 'mailto:saadq9870@gmail.com'
+                script {
+                    // Generate and send the approval link in the email
+                    emailext subject: 'Manual Approval Required', body: getApprovalEmailBody(), to: 'saadq9870@gmail.com'
+                }
+            }
+        }
+
+        stage('Handle Approval Decision') {
+            steps {
+                script {
+                    def userInput = input message: 'Pipeline Approval Required', parameters: [choice(name: 'APPROVAL', choices: ['Proceed', 'Abort'])]
+
+                    // Process the user's choice
+                    if (userInput == 'Abort') {
+                        currentBuild.result = 'ABORTED'
+                        error('Pipeline aborted by user.')
+                    }
+                }
             }
         }
     }
@@ -63,14 +61,14 @@ pipeline {
             script {
                 emailext body: 'Pipeline Build Successfully',
                     subject: 'Pipeline Success',
-                    to: 'kasareabhishek79@gmail.com'
+                    to: 'saadq9870@gmail.com'
             }
         }
         failure {
             script {
                 emailext body: 'Pipeline Failure occurred.',
                     subject: 'Pipeline Failure',
-                    to: 'kasareabhishek79@gmail.com'
+                    to: 'saadq9870@gmail.com'
             }
         }
     }
@@ -78,17 +76,7 @@ pipeline {
 
 def getApprovalEmailBody() {
     def approvalMailBody = "Pipeline has started. Manual approval is required.\n\n"
-    approvalMailBody += "Click [here](${BUILD_URL}input/) to provide approval."
+    approvalMailBody += '''Click on this link 
+                            (${BUILD_URL}input/) - To Provide Approval."
     return approvalMailBody
-}
-
-def customizeManualApprovalStage() {
-    // Your custom approval stage logic goes here
-    input message: 'Pipeline Approval Required', parameters: [choice(name: 'APPROVAL', choices: ['Proceed', 'Abort'])]
-
-    // Process the user's choice
-    if (params.APPROVAL == 'Abort') {
-        currentBuild.result = 'ABORTED'
-        error('Pipeline aborted by user.')
-    }
 }
