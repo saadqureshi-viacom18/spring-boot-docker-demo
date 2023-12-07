@@ -21,7 +21,7 @@ pipeline {
         }
 
         // Uncomment and complete the approval stage as needed
-        /*
+        
         stage('Approval Stage') {
             steps {
                 script {
@@ -45,7 +45,6 @@ pipeline {
                 }
             }
         }
-        */
     }
 
     post {
