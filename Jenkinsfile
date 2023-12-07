@@ -71,6 +71,6 @@ pipeline {
 
 def getApprovalEmailBody() {
     def approvalMailBody = "Pipeline has started. Manual approval is required.\n\n"
-    approvalMailBody += "Click [here](${BUILD_URL}approval/) to provide approval."
+    approvalMailBody += "Click [here](${BUILD_URL}input/) to provide approval."
     return approvalMailBody
 }
