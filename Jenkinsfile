@@ -8,7 +8,10 @@ pipeline {
     stages {
         stage("Pipeline Start") {
             steps {
-                echo "Pipeline Started"
+                script {
+                    echo "Pipeline Started"
+                    emailext subject: 'Pipeline Started', body: 'Pipeline has started.', to: 'kasareabhishek79@gmail.com'
+                }
             }
         }
 
@@ -21,7 +24,21 @@ pipeline {
             }
         }
 
-        stage("Git-Checkout") {
+        stage('Handle Approval Decision') {
+            steps {
+                script {
+                    def userInput = input message: 'Pipeline Approval Required', parameters: [choice(name: 'APPROVAL', choices: ['Proceed', 'Abort'])]
+                    
+                    // Process the user's choice
+                    if (userInput == 'Abort') {
+                        currentBuild.result = 'ABORTED'
+                        error('Pipeline aborted by user.')
+                    }
+                }
+            }
+        }
+
+        stage('Git-Checkout') {
             steps {
                 script {
                     // Make sure to use credentials for Git if needed
@@ -33,31 +50,6 @@ pipeline {
                         credentialsId: 'your-git-credentials-id'
                     )
                 }
-            }
-        }
-
-        stage('Approval Stage') {
-            steps {
-                script {
-                    input message: 'Pipeline Approval Required', parameters: [choice(name: 'APPROVAL', choices: ['Proceed', 'Abort'])]
-                    
-                    // Process the user's choice
-                    if (params.APPROVAL == 'Abort') {
-                        currentBuild.result = 'ABORTED'
-                        error('Pipeline aborted by user.')
-                    }
-                }
-            }
-        }
-
-        stage('Abort Stage') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('ABORTED') }
-            }
-            steps {
-                echo 'Aborting the pipeline...'
-                // Additional steps for aborting the pipeline can be added here
-                emailext body: 'Pipeline has been aborted.', subject: 'Pipeline Aborted', to: 'kasareabhishek79@gmail.com'
             }
         }
     }
