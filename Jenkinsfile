@@ -9,7 +9,15 @@ pipeline {
         stage("Pipeline Start") {
             steps {
                 echo "Pipeline Started"
-                emailext subject: 'Pipeline Started', body: 'Pipeline has started. Manual approval is required.\n\nClick [here](' + getApprovalLink() + ') to provide approval.', to: 'kasareabhishek79@gmail.com'
+            }
+        }
+
+        stage("Generate Approval Link") {
+            steps {
+                script {
+                    // Generate and send the approval link in the email
+                    emailext subject: 'Manual Approval Required', body: getApprovalEmailBody(), to: 'kasareabhishek79@gmail.com'
+                }
             }
         }
 
@@ -61,6 +69,8 @@ pipeline {
     }
 }
 
-def getApprovalLink() {
-    return "${BUILD_URL}parameters/"
+def getApprovalEmailBody() {
+    def approvalMailBody = "Pipeline has started. Manual approval is required.\n\n"
+    approvalMailBody += "Click [here](${BUILD_URL}approval/) to provide approval."
+    return approvalMailBody
 }
