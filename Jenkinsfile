@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Generate and send the approval link in the email
-                    emailext subject: 'Manual Approval Required', body: getApprovalEmailBody(), to: 'hitikaabhandari0304@gmail.com'
+                    emailext subject: 'Manual Approval Required', body: getApprovalEmailBody(), to: 'kambleaditya256@gmail.com'
                 }
             }
         }
